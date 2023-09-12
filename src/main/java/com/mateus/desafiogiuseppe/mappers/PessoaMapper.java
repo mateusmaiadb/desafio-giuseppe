@@ -29,10 +29,9 @@ public interface PessoaMapper {
 
 
     static Pessoa toEntity(PessoaDto pessoaDTO) {
-        Pessoa pessoa = new Pessoa();
-        pessoa.setId(pessoaDTO.getId());
-        pessoa.setNome(pessoaDTO.getNome());
-        pessoa.setDataCadastro(pessoaDTO.getDataCadastro());
-        return pessoa;
+        return Pessoa.builder()
+                .id(pessoaDTO.getId())
+                .nome(pessoaDTO.getNome())
+                .dataCadastro(pessoaDTO.getDataCadastro()).build();
     }
 }
