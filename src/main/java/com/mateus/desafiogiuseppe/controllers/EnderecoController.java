@@ -39,4 +39,11 @@ public class EnderecoController {
         EnderecoDto enderecoCriado = enderecoService.criarEndereco(enderecoDto);
         return new ResponseEntity<>(enderecoCriado, HttpStatus.CREATED);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteEndereco(@PathVariable("id") Long id) {
+        enderecoService.deleteEndereco(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

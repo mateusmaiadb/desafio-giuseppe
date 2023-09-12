@@ -46,4 +46,11 @@ public class PessoaController {
             throw new IllegalArgumentException("Este id: " + id + " não esta em nosso banco de dados!");
         }
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePessoa(@PathVariable("id") Long id) {
+        pessoaService.deletePessoa(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

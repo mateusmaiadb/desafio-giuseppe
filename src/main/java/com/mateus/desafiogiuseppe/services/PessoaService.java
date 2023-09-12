@@ -55,4 +55,14 @@ public class PessoaService {
         }
         throw new IllegalArgumentException("Esse id: " + id + " não esta em nosso banco de dados!");
     }
+
+    public void deletePessoa(Long id) {
+        Optional<Pessoa> pessoaOptional = pessoaRepository.findById(id);
+        if (pessoaOptional.isPresent()) {
+            pessoaRepository.deleteById(id);
+        } else {
+            throw new IllegalArgumentException("Pessoa com ID " + id + " não encontrada.");
+        }
+    }
+
 }

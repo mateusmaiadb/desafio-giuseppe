@@ -50,5 +50,14 @@ public class EnderecoService {
         throw new IllegalArgumentException("Este id: " + id + " não esta em nosso banco de dados!");
     }
 
+    public void deleteEndereco(Long id) {
+        Optional<Endereco> enderecoOptional = enderecoRepository.findById(id);
+        if (enderecoOptional.isPresent()) {
+            enderecoRepository.deleteById(id);
+        } else {
+            throw new IllegalArgumentException("Endereço com ID " + id + " não encontrado.");
+        }
+    }
+
 
 }
