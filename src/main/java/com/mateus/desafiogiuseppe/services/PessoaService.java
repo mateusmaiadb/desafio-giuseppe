@@ -53,6 +53,6 @@ public class PessoaService {
             List<EnderecoDto> enderecoDto = enderecoService.listarEnderecosPessoa(id);
             return PessoaMapper.toDetalhesDto(pessoa,enderecoDto);
         }
-        return null;
+        throw new IllegalArgumentException("Esse id: " + id + " não esta em nosso banco de dados!");
     }
 }
