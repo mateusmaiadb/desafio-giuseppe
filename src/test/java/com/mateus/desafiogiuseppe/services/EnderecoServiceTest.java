@@ -83,4 +83,29 @@ class EnderecoServiceTest {
 
         verify(enderecoRepository, times(1)).findById(id);
     }
+
+    @Test
+    void deleteEndereco() {
+        Long id = 1L;
+        Endereco endereco = EnderecoStub.criandoEndereco();
+
+        when(enderecoRepository.findById(id)).thenReturn(Optional.of(endereco));
+
+        enderecoService.deleteEndereco(id);
+
+        verify(enderecoRepository, times(1)).findById(id);
+        verify(enderecoRepository, times(1)).deleteById(id);
+    }
+
+    @Test
+    void deleteEndereco_EnderecoNaoEncontrado() {
+        Long id = 2L;
+
+        when(enderecoRepository.findById(id)).thenReturn(Optional.empty());
+
+        assertThrows(IllegalArgumentException.class, () -> enderecoService.deleteEndereco(id));
+
+        verify(enderecoRepository, times(1)).findById(id);
+        verify(enderecoRepository, never()).deleteById(id);
+    }
 }

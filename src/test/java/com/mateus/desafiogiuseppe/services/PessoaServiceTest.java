@@ -36,7 +36,7 @@ class PessoaServiceTest {
 
 
     @Test
-    @DisplayName("Deve retornar todas as pessos do banco")
+    @DisplayName(" Retorna todas as pessos do banco")
     void findAllPessoas() {
         when(pessoaRepository.findAll()).thenReturn(List.of(PessoaStub.criandoPessoa()));
 
@@ -61,7 +61,7 @@ class PessoaServiceTest {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("Pesquisa pessoa por id")
     void findPessoaById() {
         Long id = 1L;
         Pessoa pessoa = PessoaStub.criandoPessoa();
@@ -75,6 +75,7 @@ class PessoaServiceTest {
     }
 
     @Test
+    @DisplayName("Erro  ao buscar id caso pessoa(id) não seja encontrado")
     void findPessoaById_PessoaNaoEncontrada() {
         Long id = 2L;
 
@@ -86,6 +87,7 @@ class PessoaServiceTest {
     }
 
     @Test
+    @DisplayName("Erro ao buscar detalhes de pessoa  pelo id")
     void detalhesPessoa_PessoaNaoEncontrada() {
         Long id = 2L;
 
@@ -98,6 +100,7 @@ class PessoaServiceTest {
     }
 
     @Test
+    @DisplayName("Detalhes da pessoa, incluindo enderecos")
     void detalhesPessoa() {
         Long id = 1L;
         Pessoa pessoa = PessoaStub.criandoPessoa();
@@ -111,5 +114,32 @@ class PessoaServiceTest {
         verify(pessoaRepository, times(1)).findById(id);
         verify(enderecoService, times(1)).listarEnderecosPessoa(id);
         assertNotNull(detalhesDto);
+    }
+
+    @Test
+    @DisplayName("Deleta pessoa por id")
+    void deletePessoa() {
+        Long id = 1L;
+        Pessoa pessoa = PessoaStub.criandoPessoa();
+
+        when(pessoaRepository.findById(id)).thenReturn(Optional.of(pessoa));
+
+        pessoaService.deletePessoa(id);
+
+        verify(pessoaRepository, times(1)).findById(id);
+        verify(pessoaRepository, times(1)).deleteById(id);
+    }
+
+    @Test
+    @DisplayName("Quando o id fa pessoa nao é encontrada, retorna a Exception")
+    void deletePessoa_PessoaNaoEncontrada() {
+        Long id = 10L;
+
+        when(pessoaRepository.findById(id)).thenReturn(Optional.empty());
+
+        assertThrows(IllegalArgumentException.class, () -> pessoaService.deletePessoa(id));
+
+        verify(pessoaRepository, times(1)).findById(id);
+        verify(pessoaRepository, never()).deleteById(id);
     }
 }
