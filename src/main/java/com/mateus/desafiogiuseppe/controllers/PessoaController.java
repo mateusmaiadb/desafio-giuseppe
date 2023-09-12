@@ -26,8 +26,9 @@ public class PessoaController {
     }
 
     @GetMapping
-    public List<PessoaDto> listarPessoas(){
-        return pessoaService.findAllPessoas();
+    public ResponseEntity<List<PessoaDto>> listarPessoas(){
+        List<PessoaDto> pessoas = pessoaService.findAllPessoas();
+        return ResponseEntity.ok(pessoas);
     }
 
     @GetMapping("/{id}")
