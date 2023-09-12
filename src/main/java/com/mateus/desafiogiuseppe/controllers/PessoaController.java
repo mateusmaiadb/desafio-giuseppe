@@ -45,6 +45,4 @@ public class PessoaController {
             throw new IllegalArgumentException("Este id: " + id + " não esta em nosso banco de dados!");
         }
     }
-
-
 }

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 public interface EnderecoMapper {
 
     static EnderecoDto toDto(Endereco endereco) {
-
         EnderecoDto enderecoDto = new EnderecoDto();
         BeanUtils.copyProperties(endereco,enderecoDto);
         return enderecoDto;
